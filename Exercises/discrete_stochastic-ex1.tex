@@ -1,0 +1,293 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{amsmath}
+\usepackage{bbm}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+\usepackage[hyphens]{url}
+\usepackage[scale=3]{ccicons}  % per le icone creative commons
+\usepackage{hyperref}  % per i link nel pdf
+\usepackage[rmargin=3.0cm,lmargin=3.0cm]{geometry}
+%\usepackage{frontesp}  % prima pagina; il pacchetto frontesp.sty si trova nella stessa cartella del file .tex (deve essere adattato a mano)
+\usepackage{setspace}  % per l'interlinea
+\usepackage[english]{babel}  % per sillabazione
+\usepackage[all]{xy} %diagrammi di funzioni
+\usepackage{xspace} %per assicurare la corretta gestione degli spazi finali quando uso e.g. \AC. NB: sarebbe meglio trovare un'altra soluzione...cfr. http://tex.stackexchange.com/questions/15220/no-space-present-after-ensuremath
+\usepackage{stmaryrd}
+\usepackage{xfrac}
+\usepackage{tikz-cd}
+\usetikzlibrary{matrix,positioning,decorations.pathreplacing}
+\usepackage{graphicx}
+%\usepackage{parskip} %modifica la gestione degli spazi nei paragrafi, in particolare disabilita l'indentazione e aumenta lo spazio verticale tra i paragrafi
+
+
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[chapter] % resetta la numerazione dei teoremi per ogni capitolo
+\newtheorem{corollary}[theorem]{Corollary} % la numerazione delle definizioni dipende da quella dei teoremi
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{Remark}[theorem]{Remark}
+\newtheorem*{addendum}{Addendum}
+\newtheorem*{examples}{Examples}
+\newtheorem*{remark}{Remark}
+\newtheorem*{remex}{Remarks and Examples}
+
+%%% inizio comandi per stile per teoremi: "numero. Titolo" %%%
+\newtheoremstyle{num.custom-title}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\bfseries} % HEADFONT
+  {}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {\thmnumber{#2.}\thmnote{ #3}}
+  
+\theoremstyle{num.custom-title}  
+\newtheorem{teo_custom-title}[theorem]{} % per usarlo basta \begin{teo_custom-title}[<Titolo teorema>] (usa automaticamente la numerazione di [teo])
+%%% fine comandi per stile per teoremi: "numero. Titolo" %%%
+
+\newenvironment{claim}[1]{\par\noindent\underline{Claim#1:}\space}{} %per i claim
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill\quad\hbox{$\blacksquare$}} %per le dimostrazioni dei claim
+
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\orb}{orb}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\tor}{tor}
+\let\o\relax % elimina \o dai comandi già definiti
+\DeclareMathOperator{\o}{\mathsf{o}}
+\let\Im\relax % elimina \o dai comandi già definiti
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\Zdv}{Zdv}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\A}{\mathcal{A}}
+\DeclareMathOperator{\B}{\mathcal{B}}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\PP}{\mathcal{P}}
+\DeclareMathOperator{\LL}{\mathcal{L}}
+\DeclareMathOperator{\Hrtg}{\text{Hrtg}}
+\DeclareMathOperator{\Ord}{\text{Ord}}
+\DeclareMathOperator{\J}{\mathcal{J}}
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\U}{\mathfrak{U}}
+\DeclareMathOperator{\PPP}{\mathbb{P}}
+\DeclareMathOperator{\V}{\mathcal{V}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\a01}{\{0,1\}^{\star}}
+\DeclareMathOperator{\imp}{\Rightarrow}
+\DeclareMathOperator{\pmi}{\Leftarrow}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\sm}{\setminus}
+\DeclareMathOperator{\sse}{\subseteq}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\q}{\mathsf{q}}
+\DeclareMathOperator{\h}{h}
+\DeclareMathOperator{\GL}{GL}
+\let\S\relax % elimina \S dai comandi già definiti
+\DeclareMathOperator{\S}{S}
+\DeclareMathOperator{\Cont}{Cont}
+%\DeclareMathOperator{\gcd}{GCD}
+
+
+\newcommand{\AC}{\ensuremath{\mathsf{AC}}\xspace}
+\newcommand{\CC}{\ensuremath{\mathsf{CC}}\xspace}
+\newcommand{\DC}{\ensuremath{\mathsf{DC}}\xspace}
+\newcommand{\ZF}{\ensuremath{\mathsf{ZF}}\xspace}
+\newcommand{\ZFC}{\ensuremath{\mathsf{ZFC}}\xspace}
+\newcommand{\LS}{\ensuremath{\mathsf{LS}}\xspace}
+\newcommand{\AMC}{\ensuremath{\mathsf{AMC}}\xspace}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} %per la prima pagina
+\newcommand{\qedblack}{\hfill $\blacksquare$}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\IFF}{\Longleftrightarrow}
+\newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\ndivides}{%
+  \mathrel{\mkern.5mu % small adjustment
+    % superimpose \nmid to \big|
+    \ooalign{\hidewidth$\big|$\hidewidth\cr$\nmid$\cr}%
+  }%
+}
+
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\H}{\mathcal{H}}
+%\renewcommand{\S}{\mathcal{S}}
+\renewcommand{\1}{\mathbbm{1}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\u}{\mathbf{u}}
+\renewcommand{\iff}{\Leftrightarrow}
+
+
+
+%%%% INIZIO COMANDI PER EQUIVALENZE %%%%
+\newcommand{\Implies}[2]{$\text{\ref{statement#1}}\!\implies\!\text{\ref{statement#2}}$}% X => Y
+\newcommand{\punto}[1]{\item \label{statement#1}}
+
+
+\newenvironment{equivalence}
+    {\begin{enumerate}[label=(\arabic*),ref=(\arabic*)]
+    }
+    { 
+	\end{enumerate}
+    }
+%%%% FINE COMANDI PER EQUIVALENZE %%%
+
+
+
+% Interlinea 1.5
+%\onehalfspacing  
+
+
+%per le citazioni
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+%disabilita colore link
+%\hypersetup{%
+%    pdfborder = {0 0 0}
+%}
+
+\begin{document}
+
+\noindent Andrea Gadotti \hfill 17/03/2015
+
+\paragraph{Exercise 1.}
+
+\begin{enumerate}[(a)]
+\item $\A$ must contain $\emptyset$, $\Omega$, $\{1,3,5\}$ and $\{2,4,6\}$. Such a collection is already closed under union, intersection and complement. So it's precisely $\A$.
+\item $\A$ must contain $\emptyset$, $\Omega$, $\{1,2\}$, $\{3,4\}$ and $\{5,6\}$, thus (using the union) also $\{1,2,3,4\}$, $\{1,2,5,6\}$ and $\{3,4,5,6\}$. It's immediate to check that such a collection is already closed under intersection and complement. So it's precisely $\A$.
+\item $\A$ must contain every singleton, and thus $\A = \PP(\Omega)$, because $\Omega$ is finite and thus every subset can be written as the \emph{countable} (finite) union of the singletons of its elements.
+\end{enumerate}
+
+\paragraph{Exercise 2.} Let $\Omega := \{r,b,g,w\}$. We can construct the $\sigma$-algebra formed by $\emptyset,\Omega$ and:
+\begin{enumerate}
+\item nothing else.
+\item One singleton, and thus also its complement. These are 4 different algebras (one for every singleton).
+\item One set of cardinality 2, and thus also its complement. These are $6/2=3$ different algebras (there are 6 choices for sets of cardinality 2, but every such a set determines also the other one).
+\item \emph{One set of cardinality 3: these algebras are exactly the same of the second point.}
+\item \emph{One set of cardinality 4: same of first point.}
+\item Two singletons, and thus also their complements, their union and the complement of their union. These are 6 different algebras (one for every choice of two singletons).
+\item Two sets of cardinality 2. \emph{If the two sets are disjoint, the algebras are the same of third point.} If the two sets are not disjoint, then their intersection is a singleton. Now it's easy to check that we can construct every singleton, and thus these algebras are all $\PP(\Omega)$. Thus we have found just 1 more algebra.
+\item \emph{Two sets of cardinality 3: same of sixth point.}
+\item \emph{Three singletons: it's immediate to construct the other singleton, and thus we obtain $\PP(\Omega)$.}
+\item \emph{Three sets of cardinality 2: it's easy to check that in this case we can always construct every singleton, and thus we get $\PP(\Omega)$.}
+\item \emph{Three sets of cardinality 3: it's easy to check that in this case we can always construct every singleton, and thus we get $\PP(\Omega)$.}
+\item \emph{Four singletons: this is trivially $\PP(\Omega)$.}
+\end{enumerate}
+
+So the different $\sigma$-algebras are 15. The non-isomorphic ones are as many as the non-italic points, i.e. 5.
+
+\paragraph{Exercise 3.} 
+\begin{enumerate}[(a)]
+\item $\P[A \cap B^c] = \P[A] - \P[A \cap B] = \P[A] - \P[A]\P[B] = \P[A](1-\P[B])=\P[A]\P[B^c]$.
+\item $\P[A^c \cap B^c] = \P[B^c] - \P[A \cap B^c] = \P[B^c] - \P[A]\P[B^c] = \P[B^c](1-\P[A]) = \P[B^c]\P[A^c]$.
+\end{enumerate}
+
+\paragraph{Exercise 4.}\ \\
+\textbf{Note:} the following solution might look too complex/heavy/elaborated. I am pretty sure there aren't much easier ways to solve the exercise, but I could be wrong. Nevertheless, one thing is for sure: \textbf{answers of the type ``if the firstborn is a girl, then the chance that the second is a boy is 1/2, because the events are \emph{clearly} independent'' MAKE. NO. SENSE.} The exercise is given \emph{precisely} to force us to set up a theoretical environment which models the real problem, but where we can \emph{formally prove} the statements. And indeed such independence can be \emph{proved} in the following model. Of course, one can argue that my probability space doesn't faithfully model the real problem, but that's a different story.\\
+\\
+\noindent\textbf{Solution.} We define $\Omega := \{0,1\} \times \{0,1\} \times \{0,1\}$. By $0$ we mean boy and by $1$ we mean ``girl''.
+\begin{enumerate}[(a)]
+\item We take $\A := \PP(\Omega)$ and $\P[\omega] := \frac{1}{2^3}$ for all $\omega \in \Omega$. Since $\Omega$ is finite, this completely determines $\P$ on $\A$ (by the additive property).
+\item Recall that $\P[A|B] = \P[A \cap B]/\P[B]$. Let $A := \{(x,y,z) \in \Omega \mid y=0\}$ and $B := \{(x,y,z) \in \Omega \mid x=1\}$. Then the exercise asks us to to compute $\P[A|B]$, and it's very easy to check that $\P[A \cap B] = \frac{1}{2^2}$ and $\P[B]=\frac{1}{2}$, thus the result is $\frac{1}{2}$.
+\item Define $A := \{(x,y,z) \in \Omega \mid x=y=z=1\} = \{(1,1,1)\}$ and $B := \{(x,y,z) \in \Omega \mid x=1 \vee y=1 \vee z=1\}$. We shall compute $\P[A|B] = \P[A \cap B]/\P[B]$. Observe that $\P[A] = \frac{1}{2^3}$. Furthermore, trivially $A \sse B$, thus $\P[A \cap B] = \P[A] = \frac{1}{2^3}$. Now observe that $\P[B]=1-\P[B^c]$, and trivially $B^c = \{(0,0,0)\}$. Thus $\P[B]=1-\frac{1}{2^3}$. So
+\[
+\P[A|B] = \frac{1}{2^3} \cdot \frac{2^3}{2^3-1} = \frac{1}{7}.
+\]
+\end{enumerate}
+
+\paragraph{Exercise 5.}
+\begin{enumerate}[(a)]
+\item Let $A$ denote the event ``$X=4$'' and $B$ denote the event ``all coins show head''. We are asked to find $\P[A|B]$. By Bayes theorem we know that
+\[
+\P[A|B] = \frac{\P[B|A] \P[B]}{\P[A]}.
+\]
+Now observe that (after setting up an appropriate abstract model for this problem we could prove that) $\P[A] = \frac{16}{110}$ and $\P[B|A] = \frac{1}{2^4}$. It is left to compute $\P[B]$. Let $C_k$ be the event ``$X=k$''. Of course such events are pairwise disjoint and they cover $\Omega$. So by the rule of total probability we have
+\[
+\P[B] = \sum_{k=1}^{10} \P[B|C_k] \P[C_k] = \sum_{k=1}^{10} \frac{1}{2^k} \frac{2k}{110} = \frac{1}{110} \sum_{k=1}^{10} k \left( \frac{1}{2} \right)^{k-1} = \frac{1}{110} \frac{509}{128}.
+\]
+So
+\[
+\P[A|B] = \frac{1}{2^4} \frac{1}{110} \frac{509}{128} \frac{110}{16} = \frac{509}{2^{15}}.
+\]
+\item Let $D$ be the event ``$X$ is even''. We are asked to check whether
+\[
+\P[D \cap B] = \P[D] \P[B].
+\]
+%Of course $\P[D] = (4 + 8 + 12)/110 = \frac{12}{55}$. 
+We already know $\P[B]$. Let's compute $\P[D \cap B]$. Observe that
+\begin{align*}
+\P[D \cap B] 
+&= \P[B|D] \P[D] \\
+&= \P[B | C_2 \uplus C_4 \uplus C_6] \P[D] \\ 
+&= \Big( \P[B | C_2] + \P[B | C_4] + \P[B | C_6] \Big) \P[D] \tag{immediate to check} \\
+&= \Big( \frac{1}{2^2} + \frac{1}{2^4} + \frac{1}{2^6} \Big) \P[D] \\
+&= \frac{25}{64} \P[D].
+\end{align*}
+But $\P[B] \neq \frac{25}{64}$, and thus $D$ and $B$ are not independent.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
