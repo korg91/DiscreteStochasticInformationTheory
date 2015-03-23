@@ -241,13 +241,13 @@ So the different $\sigma$-algebras are 15. The non-isomorphic ones are as many a
 \[
 \P[A|B] = \frac{\P[B|A] \P[B]}{\P[A]}.
 \]
-Now observe that (after setting up an appropriate abstract model for this problem we could prove that) $\P[A] = \frac{16}{110}$ and $\P[B|A] = \frac{1}{2^4}$. It is left to compute $\P[B]$. Let $C_k$ be the event ``$X=k$''. Of course such events are pairwise disjoint and they cover $\Omega$. So by the rule of total probability we have
+Now observe that (after setting up an appropriate abstract model for this problem we could prove that) $\P[A] = \frac{8}{110}$ and $\P[B|A] = \frac{1}{2^4}$. It is left to compute $\P[B]$. Let $C_k$ be the event ``$X=k$''. Of course such events are pairwise disjoint and they cover $\Omega$. So by the rule of total probability we have
 \[
 \P[B] = \sum_{k=1}^{10} \P[B|C_k] \P[C_k] = \sum_{k=1}^{10} \frac{1}{2^k} \frac{2k}{110} = \frac{1}{110} \sum_{k=1}^{10} k \left( \frac{1}{2} \right)^{k-1} = \frac{1}{110} \frac{509}{128}.
 \]
 So
 \[
-\P[A|B] = \frac{1}{2^4} \frac{1}{110} \frac{509}{128} \frac{110}{16} = \frac{509}{2^{15}}.
+\P[A|B] = \frac{1}{2^4} \frac{1}{110} \frac{509}{128} \frac{110}{8} = \frac{509}{2^{14}}.
 \]
 \item Let $D$ be the event ``$X$ is even''. We are asked to check whether
 \[
