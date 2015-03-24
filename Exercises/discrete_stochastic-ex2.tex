@@ -1,0 +1,327 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{amsmath}
+\usepackage{bbm}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+\usepackage[hyphens]{url}
+\usepackage[scale=3]{ccicons}  % per le icone creative commons
+\usepackage{hyperref}  % per i link nel pdf
+\usepackage[rmargin=3.0cm,lmargin=3.0cm]{geometry}
+%\usepackage{frontesp}  % prima pagina; il pacchetto frontesp.sty si trova nella stessa cartella del file .tex (deve essere adattato a mano)
+\usepackage{setspace}  % per l'interlinea
+\usepackage[english]{babel}  % per sillabazione
+\usepackage[all]{xy} %diagrammi di funzioni
+\usepackage{xspace} %per assicurare la corretta gestione degli spazi finali quando uso e.g. \AC. NB: sarebbe meglio trovare un'altra soluzione...cfr. http://tex.stackexchange.com/questions/15220/no-space-present-after-ensuremath
+\usepackage{stmaryrd}
+\usepackage{xfrac}
+\usepackage{tikz-cd}
+\usetikzlibrary{matrix,positioning,decorations.pathreplacing}
+\usepackage{graphicx}
+%\usepackage{parskip} %modifica la gestione degli spazi nei paragrafi, in particolare disabilita l'indentazione e aumenta lo spazio verticale tra i paragrafi
+
+
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[chapter] % resetta la numerazione dei teoremi per ogni capitolo
+\newtheorem{corollary}[theorem]{Corollary} % la numerazione delle definizioni dipende da quella dei teoremi
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{Remark}[theorem]{Remark}
+\newtheorem*{addendum}{Addendum}
+\newtheorem*{examples}{Examples}
+\newtheorem*{remark}{Remark}
+\newtheorem*{remex}{Remarks and Examples}
+
+%%% inizio comandi per stile per teoremi: "numero. Titolo" %%%
+\newtheoremstyle{num.custom-title}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\bfseries} % HEADFONT
+  {}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {\thmnumber{#2.}\thmnote{ #3}}
+  
+\theoremstyle{num.custom-title}  
+\newtheorem{teo_custom-title}[theorem]{} % per usarlo basta \begin{teo_custom-title}[<Titolo teorema>] (usa automaticamente la numerazione di [teo])
+%%% fine comandi per stile per teoremi: "numero. Titolo" %%%
+
+\newenvironment{claim}[1]{\par\noindent\underline{Claim#1:}\space}{} %per i claim
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill\quad\hbox{$\blacksquare$}} %per le dimostrazioni dei claim
+
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\orb}{orb}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\tor}{tor}
+\let\o\relax % elimina \o dai comandi già definiti
+\DeclareMathOperator{\o}{\mathsf{o}}
+\let\Im\relax % elimina \o dai comandi già definiti
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\Zdv}{Zdv}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\A}{\mathcal{A}}
+\DeclareMathOperator{\B}{\mathcal{B}}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\PP}{\mathcal{P}}
+\DeclareMathOperator{\LL}{\mathcal{L}}
+\DeclareMathOperator{\Hrtg}{\text{Hrtg}}
+\DeclareMathOperator{\Ord}{\text{Ord}}
+\DeclareMathOperator{\J}{\mathcal{J}}
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\U}{\mathfrak{U}}
+\DeclareMathOperator{\PPP}{\mathbb{P}}
+\DeclareMathOperator{\V}{\mathcal{V}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\a01}{\{0,1\}^{\star}}
+\DeclareMathOperator{\imp}{\Rightarrow}
+\DeclareMathOperator{\pmi}{\Leftarrow}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\sm}{\setminus}
+\DeclareMathOperator{\sse}{\subseteq}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\q}{\mathsf{q}}
+\DeclareMathOperator{\h}{h}
+\DeclareMathOperator{\GL}{GL}
+\let\S\relax % elimina \S dai comandi già definiti
+\DeclareMathOperator{\S}{S}
+\DeclareMathOperator{\Cont}{Cont}
+%\DeclareMathOperator{\gcd}{GCD}
+
+
+\newcommand{\AC}{\ensuremath{\mathsf{AC}}\xspace}
+\newcommand{\CC}{\ensuremath{\mathsf{CC}}\xspace}
+\newcommand{\DC}{\ensuremath{\mathsf{DC}}\xspace}
+\newcommand{\ZF}{\ensuremath{\mathsf{ZF}}\xspace}
+\newcommand{\ZFC}{\ensuremath{\mathsf{ZFC}}\xspace}
+\newcommand{\LS}{\ensuremath{\mathsf{LS}}\xspace}
+\newcommand{\AMC}{\ensuremath{\mathsf{AMC}}\xspace}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} %per la prima pagina
+\newcommand{\qedblack}{\hfill $\blacksquare$}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\IFF}{\Longleftrightarrow}
+\newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\ndivides}{%
+  \mathrel{\mkern.5mu % small adjustment
+    % superimpose \nmid to \big|
+    \ooalign{\hidewidth$\big|$\hidewidth\cr$\nmid$\cr}%
+  }%
+}
+
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\H}{\mathcal{H}}
+%\renewcommand{\S}{\mathcal{S}}
+\renewcommand{\1}{\mathbbm{1}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\u}{\mathbf{u}}
+\renewcommand{\iff}{\Leftrightarrow}
+
+
+
+%%%% INIZIO COMANDI PER EQUIVALENZE %%%%
+\newcommand{\Implies}[2]{$\text{\ref{statement#1}}\!\implies\!\text{\ref{statement#2}}$}% X => Y
+\newcommand{\punto}[1]{\item \label{statement#1}}
+
+
+\newenvironment{equivalence}
+    {\begin{enumerate}[label=(\arabic*),ref=(\arabic*)]
+    }
+    { 
+	\end{enumerate}
+    }
+%%%% FINE COMANDI PER EQUIVALENZE %%%
+
+
+
+% Interlinea 1.5
+%\onehalfspacing  
+
+
+%per le citazioni
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+%disabilita colore link
+%\hypersetup{%
+%    pdfborder = {0 0 0}
+%}
+
+\begin{document}
+
+\noindent Andrea Gadotti \hfill 24/03/2015
+
+\paragraph{Exercise 6.}
+\begin{proof}
+Suppose $\sum^{\infty}_{n=1}\P(A_n)=\infty$. We want to show $1-\P(\limsup_{n \rightarrow \infty} A_n) = 0$. First of all note that for all $N \in \N$ we have $\sum^{\infty}_{n=N}\P(A_n)=\infty$. Now observe that
+\begin{multline*}
+1 - \P(\limsup_{n \rightarrow \infty} A_n)  = 
+1 - \P\left(\left(\bigcap_{N=1}^{\infty} \bigcup_{n=N}^{\infty}A_n\right)\right) =
+\P\left(\left(\bigcap_{N=1}^{\infty} \bigcup_{n=N}^{\infty}A_n\right)^c \, \right) =\\
+=\P\left(\bigcup_{N=1}^{\infty} \bigcap_{n=N}^{\infty}A_n^{c}\right)
+= \P\left(\liminf_{n \rightarrow \infty}A_n^{c}\right)= \lim_{N \rightarrow \infty}\P\left(\bigcap_{n=N}^{\infty}A_n^{c}\right).
+\end{multline*}
+So it is enough to show that $\P\left(\bigcap_{n=N}^{\infty}A_n^{c}\right) = 0$ for all $N \in \N$. Since the $(A_n)^{\infty}_{n = 1}$ are independent and $1-x \leq e^{-x}$ for all $x \in \R^+$:
+\begin{align*}
+\P\left(\bigcap_{n=N}^{\infty}A_n^{c}\right) 
+&= \prod^{\infty}_{n=N}\P\left(A_n^{c}\right) \\
+&= \prod^{\infty}_{n=N}\left(1-\P\left(A_n\right)\right) \\
+&\leq \prod^{\infty}_{n=N}e^{-\P(A_n)}\\
+&=e^{-\sum^{\infty}_{n=N}\P(A_n)}\\
+&=e^{-\infty}\\
+&= 0,
+\end{align*}
+and we are done.\\
+The first $(\Longrightarrow)$ is the Borel-Cantelli lemma (already proven). So we proved both the $(\Longrightarrow)$'s implications. Now it's just a matter of elementary logic to see that the $(\Longleftarrow)$'s hold as well (observe before that the sums must exist since they are sums of non-negative numbers).
+\end{proof}
+
+\paragraph{Exercise 7.}
+\begin{proof}
+\textbf{General remark.} Given two random variables $X,Y$ (which can both assume only finitely-many values) defined on $(\Omega_1,\A_1,\P_1)$ and $(\Omega_2,\A_2,\P_2)$ respectively, the \emph{sum of $X$ and $Y$}, written $X+Y$, is the random variable defined on the product probability space $(\Omega_1 \times \Omega_2, \A_1 \otimes \A_2, \P_1 \otimes \P_2)$ and given by
+\[
+Z(\omega_1,\omega_2) := X(\omega_1) + Y(\omega_2).
+\]
+\textbf{Back to the exercise.} Without loss of generality (because what really matters about a random variable is its distribution, not the probability space on which it's defined), we can assume that $X$ is defined on the probability space $(\{1,2\},\PP(\{1,2\}),\P_1)$ and is the identity function, and $Y$ is defined on the probability space $(\{0,1,2\},\PP(\{0,1,2\}),\P_2)$, where $\P_1[\omega] := \frac{1}{2}$ for all $\omega \in \{1,2\}$ and $\P_2$ is defined as in the assignment. Now, the sample space on which $Z$ is defined is by definition
+\[
+\{1,2\} \times \{0,1,2\}.
+\]
+By the way the the product $\sigma$-algebra is defined (which I won't discuss here), it is immediate to see that it must contain every singleton. Thus, since the sample space is clearly finite, this means that the $\sigma$-algebra of $Z$ is $\PP(\{1,2\} \times \{0,1,2\})$.\\
+By the way the the product probability measure $\P := \P_1 \otimes P_2$ is defined (which I won't discuss here), we must have that
+\[
+\P[(\omega_1,\omega_2)] = \P_1[\omega_1] \P_2[\omega_2]
+\]
+for all $\omega_1 \in \{1,2\}$ and $\omega_2 \in \{0,1,2\}$. Since the probability space is clearly finite, this completely determines $\P$ on the whole $\sigma$-algebra (by the additive property).\\
+It is left to find the distribution of $Z$. Observe that
+\begin{align*}
+\P[Z=z] 
+&= \P[X+Y=z] \\
+&= \P[Y = z -X] \\
+&= \P \Big[ [X=1 \text{ and } Y = z-1] \uplus [X=2 \text{ and } Y = z-2] \Big] \\
+&= \P[X=1 \text{ and } Y = z-1] + \P[X=2 \text{ and } Y = z-2] \\
+&= \P[X=1] \P[Y=z-1] + \P[X=2]\P[Y=z-2] \tag{by independence} \\
+&= \frac{1}{2} \P[Y=z-1] + \frac{1}{2} \P[Y = z-2]. \tag{$*$}
+\end{align*}
+Since $Y$ can take values only among $\{0,1,2\}$, $(*)$ can be different from $0$ only if $z=1,2,3,4$ (which \emph{of course} makes sense, doesn't it?). Now the last computations (which I am not gonna do):
+\begin{itemize}
+\item $\P[Z=1] = ...$
+\item $\P[Z=2] = ...$
+\item $\P[Z=3] = ...$
+\item $\P[Z=4] = ...$
+\end{itemize}
+\end{proof}
+
+\paragraph{Exercise 8.}\
+\\
+$\P[X=0] = 0.03 + 0.16 + 0.12 = 0.31$.\\
+$\P[X=1] = ... = 0.69$.\\
+$\P[Y=-1] = 0.03 + 0.07 = 0.10$.\\
+$\P[Y=2] = ... = 0.51$.\\
+$\P[Y=3] = ... = 0.39$.\\
+$X$ and $Y$ are not independent, because e.g. $\P[(X,Y)=(0,-1)] = 0.03 \neq 0,031 = 0.31 \cdot 0.10 = \P[X=0] \cdot \P[Y=-1]$.
+
+\paragraph{Exercise 9.}
+\begin{proof}
+Let $\mu := \E[X]$. Since $X$ is discrete, it can take at most countable-many values $\{x_n \mid n \in \N\}$. Recall that $\Var[X] := \E[(X-\mu)^2] = \sum_{n \in \N} (x_n-\mu)^2 \cdot \P[X=x_n]$. %Without loss of generality, we can suppose that $\P[X=x_n]>0$ for all $n \in \N$ (otherwise we just remove the terms from the sum\footnote{Observe that we can't end up removing \emph{all} terms, because there must be at least one $x_n$ such that $\P[X=x_n]>0$, since $\sum_{n \in \N} \P[X=x_n] = 1$.}). 
+Now observe that the terms in the sum are all $\geq 0$. If $\Var[X]=0$, it clearly means that they are all $0$. So
+\[
+(x_n - \mu)^2 \P[X=x_n] = 0 \text{ for all } n \in \N.
+\]
+If $\P[X=x_n]=0$, we ``store'' $x_n$ in the set of all the values with $0$ probability. This whole set clearly has probability $0$, and this is where the ``almost surely'' in the statement comes from.\\
+If $\P[X=x_n]>0$, it means that $(x_n - \mu)^2=0$, i.e. $x_n = \mu$.\\
+So $X(\omega) = \mu$ except for a set of probability $0$, which is exactly what we must prove.
+\end{proof}
+
+\paragraph{Exercise 10.} Observe that
+\begin{align*}
+E \left[ \frac{1}{X+1} \right]
+&= \sum_{k=0}^n \frac{1}{k+1} \P[X=k] \\
+&= \sum_{k=0}^n \frac{1}{k+1} \binom{n}{k} p^k (1-p)^{n-k} \\
+&= \sum_{k=0}^n \frac{1}{k+1} \frac{n!}{k!(n-k)!} p^k (1-p)^{n-k} \\
+&= \sum_{k=0}^n \frac{n!}{(k+1)!(n-k)!} p^k (1-p)^{n-k} \\
+&= \frac{1}{(n+1)p} \sum_{k=0}^n \frac{(n+1)!}{(k+1)!(n-k)!} p^{k+1} (1-p)^{n-k} \\
+&= \frac{1}{(n+1)p} \sum_{k=0}^n \frac{(n+1)!}{(k+1)!(n-k)!} p^{k+1} (1-p)^{n-k} \\
+&= \frac{1}{(n+1)p} \sum_{k=0}^n \binom{n+1}{k+1} p^{k+1} (1-p)^{n-k} \\
+&= \frac{1}{(n+1)p} \left( \sum_{k=-1}^n \binom{n+1}{k+1} p^{k+1} (1-p)^{n-k} \right) - \frac{1}{(n+1)p} \binom{n+1}{0} p^0 (1-p)^{n+1}\\
+&= \frac{1}{(n+1)p} \left( \sum_{k'=0}^{n+1} \binom{n+1}{k'} p^{k'} (1-p)^{n-(k'-1)} \right) - \frac{1}{(n+1)p} (1-p)^{n+1}\\
+&= \frac{1}{(n+1)p} \left( \sum_{k'=0}^{n+1} \underbrace{\binom{n+1}{k'} p^{k'} (1-p)^{n+1-k'}}_{=:\phi(k)} \right) - \frac{1}{(n+1)p} (1-p)^{n+1}\\
+&= \frac{1}{(n+1)p} - \frac{1}{(n+1)p} (1-p)^{n+1} \tag{$*$} \\
+&= \frac{1-(1-p)^{n+1}}{(n+1)p},
+\end{align*}
+where $(*)$ holds because $\phi(k)$ is the distribution function of $\operatorname{Bin}(n+1,\frac{1}{2})$, and so its sum from $0$ to $n+1$ is $1$.
+
+\paragraph{Exercise 11.} Note: I am pretty sure that we also need the hypothesis $X \geq 0$, i.e. $x_i \geq 0$ for all $i \in \N$, like in the continuous case seen in class. Moreover, we also need the hypothesis $\E[X] \neq 0$, otherwise the statement is clearly false (this is because our statement is slightly different from the standard one, but the professor forgot to add this hypothesis). However:
+\begin{proof}
+Call $\mu := \E[X]$.
+\begin{align*}
+\E[X] 
+&= \sum_{i \in \N} x_i \P[X=x_i] \\
+&= \sum_{x_i < a\mu} x_i \P[X=x_i] + \sum_{x_i \geq a\mu} x_i \P[X=x_i] \\
+&\geq \sum_{x_i \geq a\mu} x_i \P[X=x_i] \tag{because $X>0$} \\
+&\geq \sum_{x_i \geq a\mu} a\mu \P[X=x_i] \\
+&= a\mu \sum_{x_i \geq a\mu} \P[X=x_i] \\
+&= a\mu \P[X \geq a\mu].
+\end{align*}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
