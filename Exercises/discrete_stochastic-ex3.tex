@@ -1,0 +1,339 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{amsmath}
+\usepackage{bbm}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+\usepackage[hyphens]{url}
+\usepackage[scale=3]{ccicons}  % per le icone creative commons
+\usepackage{hyperref}  % per i link nel pdf
+\usepackage[rmargin=3.0cm,lmargin=3.0cm]{geometry}
+%\usepackage{frontesp}  % prima pagina; il pacchetto frontesp.sty si trova nella stessa cartella del file .tex (deve essere adattato a mano)
+\usepackage{setspace}  % per l'interlinea
+\usepackage[english]{babel}  % per sillabazione
+\usepackage[all]{xy} %diagrammi di funzioni
+\usepackage{xspace} %per assicurare la corretta gestione degli spazi finali quando uso e.g. \AC. NB: sarebbe meglio trovare un'altra soluzione...cfr. http://tex.stackexchange.com/questions/15220/no-space-present-after-ensuremath
+\usepackage{stmaryrd}
+\usepackage{xfrac}
+\usepackage{tikz-cd}
+\usetikzlibrary{matrix,positioning,decorations.pathreplacing}
+\usepackage{graphicx}
+%\usepackage{parskip} %modifica la gestione degli spazi nei paragrafi, in particolare disabilita l'indentazione e aumenta lo spazio verticale tra i paragrafi
+
+
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[chapter] % resetta la numerazione dei teoremi per ogni capitolo
+\newtheorem{corollary}[theorem]{Corollary} % la numerazione delle definizioni dipende da quella dei teoremi
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{Remark}[theorem]{Remark}
+\newtheorem*{addendum}{Addendum}
+\newtheorem*{examples}{Examples}
+\newtheorem*{remark}{Remark}
+\newtheorem*{remex}{Remarks and Examples}
+
+%%% inizio comandi per stile per teoremi: "numero. Titolo" %%%
+\newtheoremstyle{num.custom-title}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\bfseries} % HEADFONT
+  {}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {\thmnumber{#2.}\thmnote{ #3}}
+  
+\theoremstyle{num.custom-title}  
+\newtheorem{teo_custom-title}[theorem]{} % per usarlo basta \begin{teo_custom-title}[<Titolo teorema>] (usa automaticamente la numerazione di [teo])
+%%% fine comandi per stile per teoremi: "numero. Titolo" %%%
+
+\newenvironment{claim}[1]{\par\noindent\underline{Claim#1:}\space}{} %per i claim
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill\quad\hbox{$\blacksquare$}} %per le dimostrazioni dei claim
+
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\orb}{orb}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\tor}{tor}
+\let\o\relax % elimina \o dai comandi già definiti
+\DeclareMathOperator{\o}{\mathsf{o}}
+\let\Im\relax % elimina \o dai comandi già definiti
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\Zdv}{Zdv}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\A}{\mathcal{A}}
+\DeclareMathOperator{\B}{\mathcal{B}}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\PP}{\mathcal{P}}
+\DeclareMathOperator{\LL}{\mathcal{L}}
+\DeclareMathOperator{\Hrtg}{\text{Hrtg}}
+\DeclareMathOperator{\Ord}{\text{Ord}}
+\DeclareMathOperator{\J}{\mathcal{J}}
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\U}{\mathfrak{U}}
+\DeclareMathOperator{\PPP}{\mathbb{P}}
+\DeclareMathOperator{\V}{\mathcal{V}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\a01}{\{0,1\}^{\star}}
+\DeclareMathOperator{\imp}{\Rightarrow}
+\DeclareMathOperator{\pmi}{\Leftarrow}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\sm}{\setminus}
+\DeclareMathOperator{\sse}{\subseteq}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\q}{\mathsf{q}}
+\DeclareMathOperator{\h}{h}
+\DeclareMathOperator{\GL}{GL}
+\let\S\relax % elimina \S dai comandi già definiti
+\DeclareMathOperator{\S}{S}
+\DeclareMathOperator{\Cont}{Cont}
+%\DeclareMathOperator{\gcd}{GCD}
+
+
+\newcommand{\AC}{\ensuremath{\mathsf{AC}}\xspace}
+\newcommand{\CC}{\ensuremath{\mathsf{CC}}\xspace}
+\newcommand{\DC}{\ensuremath{\mathsf{DC}}\xspace}
+\newcommand{\ZF}{\ensuremath{\mathsf{ZF}}\xspace}
+\newcommand{\ZFC}{\ensuremath{\mathsf{ZFC}}\xspace}
+\newcommand{\LS}{\ensuremath{\mathsf{LS}}\xspace}
+\newcommand{\AMC}{\ensuremath{\mathsf{AMC}}\xspace}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} %per la prima pagina
+\newcommand{\qedblack}{\hfill $\blacksquare$}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\IFF}{\Longleftrightarrow}
+\newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\ndivides}{%
+  \mathrel{\mkern.5mu % small adjustment
+    % superimpose \nmid to \big|
+    \ooalign{\hidewidth$\big|$\hidewidth\cr$\nmid$\cr}%
+  }%
+}
+
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\H}{\mathcal{H}}
+%\renewcommand{\S}{\mathcal{S}}
+\renewcommand{\1}{\mathbbm{1}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\u}{\mathbf{u}}
+\renewcommand{\iff}{\Leftrightarrow}
+
+
+
+%%%% INIZIO COMANDI PER EQUIVALENZE %%%%
+\newcommand{\Implies}[2]{$\text{\ref{statement#1}}\!\implies\!\text{\ref{statement#2}}$}% X => Y
+\newcommand{\punto}[1]{\item \label{statement#1}}
+
+
+\newenvironment{equivalence}
+    {\begin{enumerate}[label=(\arabic*),ref=(\arabic*)]
+    }
+    { 
+	\end{enumerate}
+    }
+%%%% FINE COMANDI PER EQUIVALENZE %%%
+
+
+
+% Interlinea 1.5
+%\onehalfspacing  
+
+
+%per le citazioni
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+%disabilita colore link
+%\hypersetup{%
+%    pdfborder = {0 0 0}
+%}
+
+\begin{document}
+
+\noindent Andrea Gadotti \hfill 21/04/2015
+
+\paragraph{Exercise 13 (to be simplified).}
+As for (a), we first prove that
+\[
+	\sum_{n=1}^\infty \P[X>n] = \sum_{k=1}^\infty k \P[k < X \leq k+1].
+\]
+Observe that 
+\[
+\{X>n\}= \biguplus_{k \geq n} \{k < X \leq k+1\}
+\]
+and thus 
+\[
+\P[X>n] = \sum_{k=n}^\infty \P[k < X \leq k+1].
+\]
+Therefore
+\begin{multline*}
+	\sum_{n=1}^\infty \P[X>n] = \sum_{n=1}^\infty \sum_{k=n}^\infty \P[k < X \leq k+1] = \sum_{k=1}^\infty \sum_{n=1}^k \P[k < X \leq k+1] =\\
+	\sum_{k=1}^\infty \P[k < X \leq k+1] \sum_{n=1}^k 1 = \sum_{k=1}^\infty \P[k < X \leq k+1] \cdot k.
+\end{multline*}
+So the two sums are equal. Now we want to prove that 
+\[
+\E[X] < \infty \iff \sum_{k=1}^\infty k \P[k < X \leq k+1] < \infty.
+\]
+($\Longrightarrow$)
+\begin{multline*}
+	\infty > \int_\Omega X d\P > \int_\Omega \sum_{k=1}^\infty \left( k \cdot \1_{\{\omega : k<X(\omega) \leq k+1\}} \right) d\P= \sum_{k=1}^\infty \int_\Omega k \cdot \1_{\{\omega : k<X(\omega) \leq k+1\}} d\P=\\
+	\sum_{k=1}^\infty k \int_\Omega \1_{\{\omega : k<X(\omega) \leq k+1\}} d\P = \sum_{k=1}^\infty k \P[k < X \leq k+1].
+\end{multline*}
+($\Longleftarrow$)
+\begin{multline*}
+	\int_\Omega X d\P \leq \int_\Omega \sum_{k=0}^\infty \left( (k+1) \cdot \1_{\{\omega : k<X(\omega) \leq k+1\}} \right) d\P = \sum_{k=0}^\infty \int_\Omega (k+1) \cdot \1_{\{\omega : k<X(\omega) \leq k+1\}} d\P=\\
+	\sum_{k=0}^\infty (k+1) \int_\Omega \1_{\{\omega : k<X(\omega) \leq k+1\}} d\P = \sum_{k=0}^\infty (k+1) \P[k < X \leq k+1] < \infty.
+\end{multline*}
+
+And we are done.\\
+As for (b), consider
+\[
+X_n := \underbrace{\sum_{x_k < n} x_k \1_{[X=x_k]}}_{=:Y_n} + n \1_{[X \geq n]}.
+\]
+Of course $X_n \nearrow X$, and so by monotone convergence
+\[
+\E[X] = \E[\lim_{n \to \infty} X_n] = \lim_{n \to \infty} \E[X_n] = \lim_{n \to \infty} \sum_{x_k < n} x_k \P[X=x_k] + n \P[X \geq n].
+\]
+Now observe that $\P[X=+\infty]>0$ implies $\E[X]=+\infty$ because $\P[X \geq n] \searrow \P[X=+\infty]$ by continuity. Since $\E[X<+\infty]$ by hypothesis, we trivially get $\P[X=+\infty]=0$. This means
+\[
+X \cdot \1_{[X<+\infty]} = X \text{ almost surely} \tag{$*$}
+\]
+Now, first observe that $Y_n \leq Y_{n+1}$ for all $n \in \N$. If $X(\omega) < \infty$, then $\exists n_0 \in \N$ s.t. $X(\omega) \leq n_0$. So $n \1_{[X \geq n]}(\omega)=0$ for all $n > n_0$, i.e. $X(\omega) = \lim_n Y_n(\omega)$. Thus $Y_n \nearrow X \cdot \1_{[X<+\infty]}$, i.e. $Y_n \nearrow X$ almost surely by $(*)$.\\
+Hence by monotone convergence we obtain $\E[Y_n] \to \E[X]$ and $\E[X_n] \to \E[X]$. Since $\E[X]<+\infty$, we can finally conclude that $\E[X_n] - \E[Y_n] \to 0$, i.e. $n\P[X \geq n] \to 0$.
+
+\paragraph{Exercise 14.} Observe that
+\[
+|Z-Y| = |X_n - Y - X_n + Z| \leq |X_n - Y| + |Z - X_n|
+\]
+by the triangular inequality. Thus
+\begin{align*}
+	\P[|Z-Y| \geq 2\epsilon]
+	&\leq \P[|X_n - Y| + |Z - X_n| \geq 2\epsilon] \\
+	&\leq \P[|X_n-Y| \geq \epsilon \text{ or } |X_n-Z| \geq \epsilon] \\
+	&\leq \P[|X_n-Y| \geq \epsilon] + \P[|X_n-Z| \geq \epsilon] \to_{n \to \infty} 0+0=0
+\end{align*}
+for all $\epsilon>0$, i.e. $\P[|Z-Y| \geq 2\epsilon]=0$ for all $\epsilon>0$. Finally, observing that
+\[
+[Y \neq Z] = \bigcup_{k=1}^\infty \left[ |Y-Z| \geq \frac{1}{k} \right]
+\]
+we immediately conclude $\P[Y \neq Z]=0$ by subadditivity.
+
+\paragraph{Exercise 15.} Observe that $\Var[S_n/n^p] = \frac{1}{n^{2p}} nC = \frac{1}{n^{2p-1}} C$. So, by Chebyshev's inequality, we get
+\[
+\P[|S_n/n^p| \geq a] \leq \frac{C}{n^{2p-1} a^2} \to 0
+\]
+because $2p-1>0$.
+
+\paragraph{Exercise 16.} \ \\
+\textbf{Solution 1.} This solution is way easier, and it follows immediately by the following Corollary we've seen in class (I didn't remember that at first):
+\begin{center}
+If $X_n$ are independent with finite variances and $\sum \frac{\Var[X]}{n^2} < \infty$, then $\sum \frac{X_n - \E[X_n]}{n}$ converges almost surely to a finite random variable.
+\end{center}
+
+\noindent\textbf{Solution 2.} Define $Y := \sum_{n=1}^\infty X_n/n$. First observe that $\E[X_n]=0$ and $\Var[X_n]=1$. Define $Y_m := \sum_{n=1}^m X_n/n$. We immediately have $\E[Y_m]=0$. Furthermore by independence
+\[
+\Var[Y_m] = \sum_{n=1}^m \frac{1}{n^2} \Var[X_n] = \sum_{n=1}^m \frac{1}{n^2}.
+\]
+%So, given the fact that $\lim_{m \to \infty} Y_m = \sum_{n=1}^\infty X_n/n$ exists (\textbf{which I seem not to be able to prove}), 
+So by Chebyshev's inequality
+\[
+0 \leq \P[ |Y_m - \E[Y_m]| \geq k] \leq \frac{\Var[Y_m]}{k^2} = \frac{\sum_{n=1}^m \frac{1}{n^2}}{k^2}
+\]
+for all $a>0$. So
+\[
+0 \leq \lim_{m \to \infty} \P[ |Y_m| \geq k] \leq \lim_{m \to \infty} \frac{\sum_{n=1}^m \frac{1}{n^2}}{k^2} = \frac{1}{k^2} \sum_{n=1}^\infty \frac{1}{n^2} = \frac{1}{k^2} \frac{\pi}{6}.
+\]
+So $\lim_{m \to \infty} \P[ |Y_m| \geq k] \leq \frac{1}{k^2} \frac{\pi}{6}$, which implies (TO BE PROVEN) $\P[\lim_{m \to \infty} |Y_m| \geq k] \leq \frac{1}{k^2} \frac{\pi}{6}$. But $\lim_{m \to \infty} |Y_m| = |Y|$ (we are allowed to assume that the limit exists, see my question in the newsgroup), so $\P[|Y| \geq k] \leq \frac{1}{k^2} \frac{\pi}{6}$. Therefore
+\[
+\sum_{k=1}^\infty \P[|Y|>k] \leq \sum_{k=1}^\infty \frac{1}{k^2} \frac{\pi}{6} = \frac{\pi}{6} \sum_{k=1}^\infty \frac{1}{k^2} = \frac{\pi^2}{36} < \infty.
+\]
+By Exercise 16(a) this implies $\E[|Y|]<\infty$, which implies $\P[|Y|=+\infty]=0$ (see solution of Exercise 13). So $Y$ is finite a.s., i.e. $Y$ converges a.s.
+
+\paragraph{Exercise 17.} Let's show that $\E[N_n/n] \to e^{-c}$ (the ``almost surely'' here makes no sense. $\E[N_n/n]$ is a number). It's trivial to check that $\E[N_n]=n(1-1/n)^r$. So $\E[N_n/n]=(1-1/n)^r$. Now, since $r/n \to c$,
+\begin{multline*}
+	\lim_{n \to +\infty} \left( 1-\frac{1}{n} \right)^r = \lim_{n \to +\infty} \left( 1-\frac{1}{n} \right)^{nc} = \lim_{n \to +\infty} \left( 1+\frac{1}{-n} \right)^{nc} = \lim_{n' \to -\infty} \left( 1+\frac{1}{n'} \right)^{-n' c} = \\
+	\lim_{n' \to -\infty} \left( \left( 1+\frac{1}{n'} \right)^{n'} \right) ^{-c} = \left( \lim_{n' \to -\infty}  \left( 1+\frac{1}{n'} \right)^{n'} \right) ^{-c} = e^{-c}.
+\end{multline*}
+Now we are asked to show that $N_n/n \to e^{-c}$ in probability. We follow the hint. We will soon need the following:\\
+\textbf{Lemma.} The following hold:
+\begin{enumerate}
+	\item $\Var \left[ \sum_{i=1}^n X_i \right] = \sum_{i=1}^n \Var[X_i] + 2\sum_{i<j} \Cov[X_i,X_j]$, where \\
+	$\Cov[X,Y] := \E{\big[(X - \E[X])(Y - \E[Y])\big]}$.
+	\item $\E[\1_A] = \P[A]$, $\Var[\1_A] = \P[A](1-\P[A])$, $\Cov[\1_A,\1_B]= \P[A \cap B] - \P[A]\P[B]$.
+	\item $\displaystyle \sum_{\substack{i<j \\ j \leq n}} 1 = \sum_{j=1}^n \sum_{i=1}^{j-1} 1 = \frac{1}{2} (n^2-n)$.
+\end{enumerate}
+The proof of the lemma is very easy, therefore we skip it. Define $A_i := [i\text{-th box is empty}]$. Observe that $\P[A_i \cap A_j] = \P[A_j | A_i] \P[A_i] = \left( 1 - \frac{1}{n-1} \right)^r \P[A_i] \to e^{-2c}$. Observe also that $\P[A_i]=\P[A_j]$ for all $i,j \leq n$ and $\P[A_i | A_j] = \P[A_h | A_k]$ for all $i \neq j$, $h \neq k$. Putting everything together we get
+\begin{align*}
+	\Var[N_n]
+	&= \Var \left[ \sum_{i=1}^n \1_{A_i} \right] \\
+	&= \sum_{i=1}^n \Var[\1_{A_i}] + 2\sum_{i<j} \Cov[\1_{A_i},\1_{A_j}] \\
+	&= \sum_{i=1}^n \P[A_i](1-\P[A_i]) + 2\sum_{i<j} ( \P[A_i \cap A_j] - \P[A_i]\P[A_j] ) \\
+	&= \sum_{i=1}^n \P[A_i](1-\P[A_i]) + 2\sum_{i<j} ( \P[A_j | A_i] \P[A_i] - \P[A_i]\P[A_j] ) \\
+	&= \P[A_i](1-\P[A_i]) \sum_{i=1}^n 1 + 2 (\P[A_j | A_i] \P[A_i] - \P[A_i]\P[A_j]) \sum_{i<j} 1 \\
+	&= n \P[A_i](1-\P[A_i]) +  (n^2-n) (\P[A_j | A_i] \P[A_i] - \P[A_i]\P[A_j]).
+\end{align*}
+So
+\begin{align*}
+	\Var[N_n/n]
+	&= \frac{1}{n^2} \Var[N_n] \\
+	&= \frac{1}{n} \P[A_i] (1-\P[A_i] - \P[A_j | A_i] + \P[A_j]) +  (\P[A_j | A_i] \P[A_i] - \P[A_i]\P[A_j])\\
+	&\to \underbrace{\frac{1}{n} e^{-c} (1- e^{-c} - e^{-c} + e^{-c})}_{\to 0} +  \underbrace{(e^{-2c} - e^{-2c})}_{=0}\\
+	&\to 0.
+\end{align*}
+
+Finally, observe that by Chebyshev's inequality
+\[
+\P[ |N_n/n - \E[N_n/n]| \geq a] \leq \frac{\Var[N_n/n]}{a^2} \to 0
+\]
+for all $a>0$, i.e. $N_n/n \to \lim_{n \to \infty} \E[N_n/n] = e^{-c}$ in probability.
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
