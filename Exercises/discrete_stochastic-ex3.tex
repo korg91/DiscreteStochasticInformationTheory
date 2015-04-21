@@ -190,6 +190,43 @@
 
 \noindent Andrea Gadotti \hfill 21/04/2015
 
+\paragraph{Exercise 12.}\ \\
+\textbf{Note:} the notation here is probably heavier than anywhere else. I'm sorry for that, but personally this is the only way I can really explain (and even understand) what's really happening. (I had already read something about conditional expectations, and the notation was definitely lighter, but it sometimes lead to some paradoxical conclusions like $\P[X=X] \neq 1$)
+\begin{itemize}
+\item[(a)] Let $\psi(x) := \E[Y|X=x] := \sum_{y \in A} y \P[Y=y|X=x]$. Recall that $\E[Y|X]$ is defined as
+\[
+\E[Y|X] := \psi(X) = \psi(X(\omega)) = \sum_{y \in A} y \underbrace{\P[Y=y|X=X(\omega)]}_{=: \phi(X(\omega))} 
+%= \sum_{y \in A} y \frac{\P[Y=y \wedge X=X(\omega)]}{\P[X=X(\omega)]}.
+\]
+So
+\begin{align*}
+\E[\E[Y|X]]
+&= \E \left[ \sum_{y \in A} y \phi(X) \right] \\
+&= \sum_{y \in A} y \E \left[ \phi(X) \right] \\
+&= \sum_{y \in A} y \left[ \sum_{\omega \in \Omega} \phi(X(\omega)) \P[X=X(\omega)] \right]  \tag{law unconsc. statistician} \\
+&= \sum_{y \in A} y \left[ \sum_{\omega \in \Omega} \P[Y=y|X=X(\omega)] \ \P[X=X(\omega)] \right] \\
+&= \sum_{y \in A} y \P[Y=y] \tag{rule of tot. prob.} \\
+&= \E[Y].
+\end{align*}
+\item[(b)] Let $K := \Im(g)$. Observe that for all $\omega \in \Omega$ we have
+\begin{align*}
+\E[g(X)Y|X](\omega) 
+&= \sum_{k \in K, y \in A} k \, y \ \P[g(X) = k \, Y=y \ | \ X=X(\omega)] \\
+&= \sum_{y \in A} y \sum_{k \in K} k \ \underbrace{\P[g(X) = k, \, Y=y \ | \ X=X(\omega)]}_{=0 \text{ except when } k=g(X(\omega))} \\
+&= \sum_{y \in A} y \ g(X(\omega)) \, \P[g(X) = g(X(\omega)), \, Y=y \ | \ X=X(\omega)] \\
+&= \sum_{y \in A} y \ g(X(\omega)) \, \P[Y=y \ | \ X=X(\omega)] \tag{immediate using def. of cond. prob.} \\
+&= g(X(\omega)) \sum_{y \in A} y \ \P[Y = y \ | \ X=X(\omega)] \\
+&= g(X(\omega)) \E[Y|X](\omega),
+\end{align*}
+i.e. $\E[g(X)Y|X] = g(X) \E[Y|X]$.
+\item[(c)] Suppose $X$ and $Y$ are independent. Then
+\[
+\E[Y|X] = \sum_{y \in A} y \P[Y=y|X=X(\omega)] = \sum_{y \in A} y \P[Y=y] = \E[Y].
+\]
+Putting this together with (b), we are done.
+\end{itemize}
+
+
 \paragraph{Exercise 13 (to be simplified).}
 As for (a), we first prove that
 \[
