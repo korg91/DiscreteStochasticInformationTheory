@@ -323,10 +323,40 @@ So we have a sum of positive numbers which equals $0$. Thus each term is zero, a
 for all $i$. So $\frac{q_i}{p_i}=1$ for all $i$, by the sentence written in italic at the top.
 
 
-
-
-
-
+\paragraph{Exercise 23.}\ 
+\begin{itemize}
+\item[a)] It's clear that $\P[X=k]=2^{-k}$. First observe that for any $x \in [0,1)$ we have
+\[
+\sum_{k=1}^\infty k x^{k-1} = \sum_{k=0}^\infty k x^{k-1} = \left( \sum_{k=0}^\infty x^k \right)' = \left( \frac{1}{1-x} \right)' = \frac{1}{(1-x)^2}.
+\]
+So
+\[
+H(X) = -\sum_{k=1}^\infty 2^{-k} \log_2 2^{-k} = \sum_{k=1}^\infty k \left( \frac{1}{2} \right)^k = \frac{1}{2} \sum_{k=1}^\infty k \left( \frac{1}{2} \right)^{k-1} = \frac{1}{2} \frac{1}{1/4} = 2.
+\]
+\item[b)] Assume that the value of $X$ is written as the sequence (of coin tosses) it comes from. So it can be
+\[
+1=1, \quad 2=01, \quad 3=001, \quad 4=0001, \quad 5=00001, \quad \ldots
+\]
+Our sequence of questions will be:
+\begin{enumerate}
+\item Is the first bit $1$?
+\item Is the second bit $1$?
+\item Is the third bit $1$?
+\item[$\vdots$]
+\item[k.] Is the $k$-th bit $1$?
+\item[$\vdots$]
+\end{enumerate}
+\end{itemize}
+Observe that, at the first question whose answer is YES, we can stop, because we know that the value of $X$ is exactly the number of questions we asked so far.\\
+Let's compute now the \emph{average} amount $\mu$ of required questions. The probability of $X=1$ is $1/2$, so with probability $1/2$ we will need just the first question. The probability of $X=2$ is $1/4$, so with probability $1/4$ we will need just the first two questions. In general
+\[
+\P[\text{the first $k$ question need to be asked}] = \frac{1}{2^k}.
+\]
+So
+\[
+\mu = \sum_{k=1}^\infty k \left( \frac{1}{2} \right)^k = 2,
+\]
+which is exactly $H(X)$ we found in point (a).
 
 
 
