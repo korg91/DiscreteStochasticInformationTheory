@@ -1,0 +1,361 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{amsmath}
+\usepackage{bbm}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+\usepackage[hyphens]{url}
+\usepackage[scale=3]{ccicons}  % per le icone creative commons
+\usepackage{hyperref}  % per i link nel pdf
+\usepackage[rmargin=3.0cm,lmargin=3.0cm]{geometry}
+%\usepackage{frontesp}  % prima pagina; il pacchetto frontesp.sty si trova nella stessa cartella del file .tex (deve essere adattato a mano)
+\usepackage{setspace}  % per l'interlinea
+\usepackage[english]{babel}  % per sillabazione
+\usepackage[all]{xy} %diagrammi di funzioni
+\usepackage{xspace} %per assicurare la corretta gestione degli spazi finali quando uso e.g. \AC. NB: sarebbe meglio trovare un'altra soluzione...cfr. http://tex.stackexchange.com/questions/15220/no-space-present-after-ensuremath
+\usepackage{stmaryrd}
+\usepackage{xfrac}
+\usepackage{tikz-cd}
+\usetikzlibrary{matrix,positioning,decorations.pathreplacing}
+\usepackage{graphicx}
+%\usepackage{parskip} %modifica la gestione degli spazi nei paragrafi, in particolare disabilita l'indentazione e aumenta lo spazio verticale tra i paragrafi
+
+
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[chapter] % resetta la numerazione dei teoremi per ogni capitolo
+\newtheorem{corollary}[theorem]{Corollary} % la numerazione delle definizioni dipende da quella dei teoremi
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{Remark}[theorem]{Remark}
+\newtheorem*{addendum}{Addendum}
+\newtheorem*{examples}{Examples}
+\newtheorem*{remark}{Remark}
+\newtheorem*{remex}{Remarks and Examples}
+
+%%% inizio comandi per stile per teoremi: "numero. Titolo" %%%
+\newtheoremstyle{num.custom-title}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\bfseries} % HEADFONT
+  {}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {\thmnumber{#2.}\thmnote{ #3}}
+  
+\theoremstyle{num.custom-title}  
+\newtheorem{teo_custom-title}[theorem]{} % per usarlo basta \begin{teo_custom-title}[<Titolo teorema>] (usa automaticamente la numerazione di [teo])
+%%% fine comandi per stile per teoremi: "numero. Titolo" %%%
+
+\newenvironment{claim}[1]{\par\noindent\underline{Claim#1:}\space}{} %per i claim
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill\quad\hbox{$\blacksquare$}} %per le dimostrazioni dei claim
+
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\orb}{orb}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\tor}{tor}
+\let\o\relax % elimina \o dai comandi già definiti
+\DeclareMathOperator{\o}{\mathsf{o}}
+\let\Im\relax % elimina \o dai comandi già definiti
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\Zdv}{Zdv}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\A}{\mathcal{A}}
+\DeclareMathOperator{\B}{\mathcal{B}}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\PP}{\mathcal{P}}
+\DeclareMathOperator{\LL}{\mathcal{L}}
+\DeclareMathOperator{\Hrtg}{\text{Hrtg}}
+\DeclareMathOperator{\Ord}{\text{Ord}}
+\DeclareMathOperator{\J}{\mathcal{J}}
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\U}{\mathfrak{U}}
+\DeclareMathOperator{\PPP}{\mathbb{P}}
+\DeclareMathOperator{\V}{\mathcal{V}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\a01}{\{0,1\}^{\star}}
+\DeclareMathOperator{\imp}{\Rightarrow}
+\DeclareMathOperator{\pmi}{\Leftarrow}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\sm}{\setminus}
+\DeclareMathOperator{\sse}{\subseteq}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\q}{\mathsf{q}}
+\DeclareMathOperator{\h}{h}
+\DeclareMathOperator{\GL}{GL}
+\let\S\relax % elimina \S dai comandi già definiti
+\DeclareMathOperator{\S}{S}
+\DeclareMathOperator{\Cont}{Cont}
+%\DeclareMathOperator{\gcd}{GCD}
+
+
+\newcommand{\AC}{\ensuremath{\mathsf{AC}}\xspace}
+\newcommand{\CC}{\ensuremath{\mathsf{CC}}\xspace}
+\newcommand{\DC}{\ensuremath{\mathsf{DC}}\xspace}
+\newcommand{\ZF}{\ensuremath{\mathsf{ZF}}\xspace}
+\newcommand{\ZFC}{\ensuremath{\mathsf{ZFC}}\xspace}
+\newcommand{\LS}{\ensuremath{\mathsf{LS}}\xspace}
+\newcommand{\AMC}{\ensuremath{\mathsf{AMC}}\xspace}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} %per la prima pagina
+\newcommand{\qedblack}{\hfill $\blacksquare$}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\IFF}{\Longleftrightarrow}
+\newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\ndivides}{%
+  \mathrel{\mkern.5mu % small adjustment
+    % superimpose \nmid to \big|
+    \ooalign{\hidewidth$\big|$\hidewidth\cr$\nmid$\cr}%
+  }%
+}
+
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\H}{\mathcal{H}}
+%\renewcommand{\S}{\mathcal{S}}
+\renewcommand{\1}{\mathbbm{1}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\u}{\mathbf{u}}
+\renewcommand{\iff}{\Leftrightarrow}
+
+
+
+%%%% INIZIO COMANDI PER EQUIVALENZE %%%%
+\newcommand{\Implies}[2]{$\text{\ref{statement#1}}\!\implies\!\text{\ref{statement#2}}$}% X => Y
+\newcommand{\punto}[1]{\item \label{statement#1}}
+
+
+\newenvironment{equivalence}
+    {\begin{enumerate}[label=(\arabic*),ref=(\arabic*)]
+    }
+    { 
+	\end{enumerate}
+    }
+%%%% FINE COMANDI PER EQUIVALENZE %%%
+
+
+
+% Interlinea 1.5
+%\onehalfspacing  
+
+
+%per le citazioni
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+%disabilita colore link
+%\hypersetup{%
+%    pdfborder = {0 0 0}
+%}
+
+\begin{document}
+
+\noindent Andrea Gadotti \hfill 28/04/2015
+
+\paragraph{Exercise 18.}
+We must prove
+\[
+\phi \left( \sum_{i=1}^\infty x_i p(x_i) \right) \leq \sum_{i=1}^\infty \phi(x_i) p(x_i).
+\]
+First we deal with the finite form.
+\begin{claim}{}
+For all $N \in \N$,
+\[
+\phi \left( \frac{\sum_{i=1}^N x_i p(x_i)}{\sum_{i=1}^N p(x_i)} \right) \leq \frac{\sum_{i=1}^N \phi(x_i) p(x_i)}{\sum_{i=1}^N p(x_i)}. \tag{$*$}
+\]
+\begin{claimproof}
+First recall that ``$\phi$ convex'' means
+\[
+\forall x_1, x_2 \in \R, \forall p_1,p_2 \in [0,1] \text{ s.t. } p_1+p_2=1 : \quad \phi(p_1 x_1 + p_2 x_2)\leq p_1 \phi(x_1) + p_2 \phi(x_2).
+\]
+We prove $(*)$ by induction on $N$. Define
+\[
+q(x_i) := \frac{p(x_i)}{\sum_{i=1}^N p(x_i)}.
+\]
+If we prove
+\[
+\phi \left( \sum_{i=1}^N x_i q(x_i) \right) \leq \sum_{i=1}^N \phi(x_i) q(x_i) \tag{$**$}
+\]
+we are done. Now observe that $q(x_i) \in [0,1]$ and $\sum_{i=1}^N q(x_i) = 1$. So:\\
+If $N=2$, then $(**)$ is precisely the definition of ``$\phi$ convex''.\\
+If $N>2$, this can be easily proven by ``grouping'' $q(x_1),...,q(x_N)$ and $q(x_N)$, and then applying the inductive hypothesis.
+\end{claimproof}
+\end{claim}
+\\[6pt]
+So $(*)$ holds for all $N \in \N$. Taking both sides to the limit we get
+\[
+\lim_{N \to \infty} \phi \left( \frac{\sum_{i=1}^N x_i p(x_i)}{\sum_{i=1}^N p(x_i)} \right) \leq \lim_{N \to \infty} \frac{\sum_{i=1}^N \phi(x_i) p(x_i)}{\sum_{i=1}^N p(x_i)} = \frac{\sum_{i=1}^\infty \phi(x_i) p(x_i)}{\sum_{i=1}^\infty p(x_i)} = \sum_{i=1}^\infty \phi(x_i) p(x_i).
+\]
+Recall that any convex function is continuous. So we can take the limit inside:
+\[
+\phi \left( \lim_{N \to \infty} \frac{\sum_{i=1}^N x_i p(x_i)}{\sum_{i=1}^N p(x_i)} \right) \leq \sum_{i=1}^\infty \phi(x_i) p(x_i),
+\]
+whereby
+\[
+\phi \left( \sum_{i=1}^\infty x_i p(x_i) \right) \leq \sum_{i=1}^\infty \phi(x_i) p(x_i),
+\]
+as wanted.
+
+
+\paragraph{Exercise 19.}
+\renewcommand{\X}{\mathcal{X}}
+Let $\X \sse \R$ be the range of $X$. Consider $Y := f(X)$. For all $y \in f[\X]$ (\textbf{note:} $f^{-1}(y)$ is, a priori, \underline{a subset} of $\X$, not an element), define $p_Y(y) := p_X(f^{-1}(y))$. By definition of entropy we have
+\[
+H(f(X)) = -\sum_{y \in f[\X]} p_Y(y) \log_2 p_Y(y).
+\]
+Now observe that if $f$ is injective, then $\forall y \in f[\X] \ \exists! x \in \X : \ f^{-1}(y)=x$. So $p_Y(y)=p_X(f^{-1}(y))=p_X(x)$. This means
+\[
+H(f(X)) = -\sum_{y \in f[\mathcal{X}]} p_Y(y) \log_2 p_Y(y) = -\sum_{x \in \X} p_X(x) \log_2 p_X(x) = H(X).
+\]
+So, if $f$ is injective, then $H(f(X))=H(X)$.\\
+Now suppose that $f$ is not injective, i.e. there exist at least two distinct elements $x_1,x_2 \in \X$ such that $f(x_1)=f(x_2) =: y$. Observe that $p_Y(y) = p_X(x_1)+p_X(x_2)$. Thus
+\begin{multline*}
+- p_Y(y) \log_2 p_Y(y) = - (p_X(x_1)+p_X(x_2)) \log_2 (p_X(x_1)+p_X(x_2))\\
+= - p_X(x_1) \log_2 (p_X(x_1)+p_X(x_2)) - p_X(x_2) \log_2 (p_X(x_1)+p_X(x_2)) =: h(y),
+\end{multline*}
+while
+\[
+-\sum_{x \in \{x_1,x_2\}} p_X(x) \log_2 p_X(x) = - p_X(x_1) \log_2 p_X(x_1) - p_X(x_2) \log_2 (p_X(x_2)) =: h(x_1,x_2).
+\]
+Since $p_X(x_1)$ and $p_X(x_2)$ are positive and $\log_2$ is a monotone increasing function, we have that $\log_2 (p_X(x_1)+p_X(x_2)) \geq \log_2 p_X(x_1)$ and $\log_2 (p_X(x_1)+p_X(x_2)) \geq \log_2 p_X(x_2)$. Therefore $h(y) \leq h(x_1,x_2)$.\\
+Since the addends of $H(f(X))$ are made like $h(y)$, and the ones of $H(X)$ are made like $h(x_1,x_2)$, repeating the same argument for all $y \in f(\X)$ we get that $H(f(X)) \leq H(X)$, as wanted.\\
+\\
+Given any random variable $Z$, it's immediate to see that every addend in $H(Z)$ is $\geq 0$. Hence, if $H(Z)=0$ then necessarily every addend is $0$. So $p_Z(z) \log_2 p_Z(z) = 0$ for all $z$. Since we can suppose w.l.o.g. $p_Z(z) \neq 0$, we get $\log_2 p_Z(z) = 1$, i.e. $p_Z(z)=1$.\\
+So, $H(f(X))=0$ implies $p_Y(y)=1$ for some $y \in f[\mathcal{X}]$, i.e. $p_X(f^{-1}(y))=1$, i.e. $f[x]=y$ for almost every $x \in \X$. That is, $f$ is almost surely constant.
+
+
+\paragraph{Exercise 20.} Define $Z := -\log_2 \sqrt[n]{\prod_{i=1}^n \P[X_i]}$. For all $i \in \N$, define $Y_i(\omega) := \log_2 \P[X_i=X_i(\omega)]$. Observe that
+\begin{align*}
+Z(\omega) 
+&= -\log_2 \sqrt[n]{\prod_{i=1}^n \P[X_i(\omega)]} \\
+&= -\frac{1}{n} \sum_{i=1}^n \log_2 \P[X_i(\omega)] \\
+&= -\frac{1}{n} \sum_{i=1}^n \log_2 \P[X_i = X_i(\omega)] \\
+&= -\frac{1}{n} \sum_{i=1}^n Y_i(\omega).
+\end{align*}
+Since the $X_i$'s are iid, it's immediate to check that also the $Y_i$'s are iid. Furthermore, write the range of $X_1$ as $\X_1 = \{x_1,x_2,...,x_k,...\}$. We trivially have
+\[
+\E[Y_1] = \sum_{k=1}^\infty \P[X_1=x_k] \log_2 \P[X_1=x_k] = -H(X_1).
+\]
+Therefore the statement follows directly by the Strong Law of Large Numbers.
+
+
+\paragraph{Exercise 21.}
+
+The (a) part has already been proven in the last paragraph of Exercise 19.\\
+For the (b) part, for all $i=1,...,n$ define $p_i := \P[X=x_i]$. Now observe that by Exercise 22, taking $q_i=\frac{1}{n}$ for all $i=1,...,n$, we get
+\[
+H(X) = -\sum_{i=1}^n p_i \log_2 p_i \leq -\sum_{i=1}^n p_i \log_2 q_i =  -\sum_{i=1}^n p_i \log_2 \frac{1}{n} = \log_2 n \sum_{i=1}^n p_i = \log_2 n,
+\]
+and the equality holds iff $p_i=q_i=\frac{1}{n}$ for all $i=1,...,n$. So we are done.
+
+
+
+\paragraph{Exercise 22.}
+
+Since
+\[
+\log_2 a = \frac{ \ln a }{ \ln 2 }
+\]
+it is sufficient to prove the statement using the natural logarithm. Note that the natural logarithm satisfies $\ln x \leq x-1$ for all $x > 0$ \emph{with equality if and only if $x=1$}.\\
+Of course we can suppose w.l.o.g. $p_i>0$ for all $i$.
+So
+\[
+- \sum_{i=1}^n p_i \ln \frac{q_i}{p_i}  \geq  - \sum_{i=1}^n p_i \left( \frac{q_i}{p_i} - 1 \right) 
+=  - \sum_{i=1}^n q_i + \sum_{i=1}^n p_i  
+ =  - \sum_{i=1}^n q_i + 1 \geq  0. \tag{$*$}
+\]
+Therefore
+\[
+- \sum_{i=1}^n p_i \ln q_i \geq - \sum_{i=1}^n p_i \ln p_i,
+\]
+as wanted.\\
+As for the equality, of course it holds if $p_i = q_i$ for all $i$. On the other hand, suppose
+\[
+- \sum_{i=1}^n p_i \ln q_i = - \sum_{i=1}^n p_i \ln p_i.
+\]
+Then $- \sum_{i=1}^n p_i \ln \frac{q_i}{p_i} =0$, and thus all the inequalities in $(*)$ are equalities, i.e.
+\[
+0 = \sum_{i=1}^n p_i \left( \frac{q_i}{p_i} - 1 \right) - \sum_{i=1}^n p_i \ln \frac{q_i}{p_i}
+= \sum_{i=1}^n p_i \underbrace{\left( \frac{q_i}{p_i} - 1 - \ln \frac{q_i}{p_i} \right)}_{\geq 0 \text{ since } \ln x \leq x-1}.
+\]
+So we have a sum of positive numbers which equals $0$. Thus each term is zero, and since $p_i \neq 0$ for all $i$ we get
+\[
+\frac{q_i}{p_i} - 1 = \ln \frac{q_i}{p_i}
+\]
+for all $i$. So $\frac{q_i}{p_i}=1$ for all $i$, by the sentence written in italic at the top.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
