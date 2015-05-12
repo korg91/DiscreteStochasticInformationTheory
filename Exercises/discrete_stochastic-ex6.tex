@@ -1,0 +1,315 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{amsmath}
+\usepackage{bbm}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[shortlabels]{enumitem}
+\usepackage[hyphens]{url}
+\usepackage[scale=3]{ccicons}  % per le icone creative commons
+\usepackage{hyperref}  % per i link nel pdf
+\usepackage[rmargin=3.0cm,lmargin=3.0cm]{geometry}
+%\usepackage{frontesp}  % prima pagina; il pacchetto frontesp.sty si trova nella stessa cartella del file .tex (deve essere adattato a mano)
+\usepackage{setspace}  % per l'interlinea
+\usepackage[english]{babel}  % per sillabazione
+\usepackage[all]{xy} %diagrammi di funzioni
+\usepackage{xspace} %per assicurare la corretta gestione degli spazi finali quando uso e.g. \AC. NB: sarebbe meglio trovare un'altra soluzione...cfr. http://tex.stackexchange.com/questions/15220/no-space-present-after-ensuremath
+\usepackage{stmaryrd}
+\usepackage{xfrac}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows,matrix,positioning,decorations.pathreplacing}
+\usepackage{graphicx}
+%\usepackage{parskip} %modifica la gestione degli spazi nei paragrafi, in particolare disabilita l'indentazione e aumenta lo spazio verticale tra i paragrafi
+
+
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[chapter] % resetta la numerazione dei teoremi per ogni capitolo
+\newtheorem{corollary}[theorem]{Corollary} % la numerazione delle definizioni dipende da quella dei teoremi
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{Remark}[theorem]{Remark}
+\newtheorem*{addendum}{Addendum}
+\newtheorem*{examples}{Examples}
+\newtheorem*{remark}{Remark}
+\newtheorem*{remex}{Remarks and Examples}
+
+%%% inizio comandi per stile per teoremi: "numero. Titolo" %%%
+\newtheoremstyle{num.custom-title}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\bfseries} % HEADFONT
+  {}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {\thmnumber{#2.}\thmnote{ #3}}
+  
+\theoremstyle{num.custom-title}  
+\newtheorem{teo_custom-title}[theorem]{} % per usarlo basta \begin{teo_custom-title}[<Titolo teorema>] (usa automaticamente la numerazione di [teo])
+%%% fine comandi per stile per teoremi: "numero. Titolo" %%%
+
+\newenvironment{claim}[1]{\par\noindent\underline{Claim#1:}\space}{} %per i claim
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill\quad\hbox{$\blacksquare$}} %per le dimostrazioni dei claim
+
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\orb}{orb}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\tor}{tor}
+\let\o\relax % elimina \o dai comandi già definiti
+\DeclareMathOperator{\o}{\mathsf{o}}
+\let\Im\relax % elimina \o dai comandi già definiti
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\Zdv}{Zdv}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\A}{\mathcal{A}}
+\DeclareMathOperator{\B}{\mathcal{B}}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\PP}{\mathcal{P}}
+\DeclareMathOperator{\LL}{\mathcal{L}}
+\DeclareMathOperator{\Hrtg}{\text{Hrtg}}
+\DeclareMathOperator{\Ord}{\text{Ord}}
+\DeclareMathOperator{\J}{\mathcal{J}}
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\U}{\mathfrak{U}}
+\DeclareMathOperator{\PPP}{\mathbb{P}}
+\DeclareMathOperator{\V}{\mathcal{V}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\a01}{\{0,1\}^{\star}}
+\DeclareMathOperator{\imp}{\Rightarrow}
+\DeclareMathOperator{\pmi}{\Leftarrow}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\sm}{\setminus}
+\DeclareMathOperator{\sse}{\subseteq}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\q}{\mathsf{q}}
+\DeclareMathOperator{\h}{h}
+\DeclareMathOperator{\GL}{GL}
+\let\S\relax % elimina \S dai comandi già definiti
+\DeclareMathOperator{\S}{S}
+\DeclareMathOperator{\Cont}{Cont}
+%\DeclareMathOperator{\gcd}{GCD}
+
+
+\newcommand{\AC}{\ensuremath{\mathsf{AC}}\xspace}
+\newcommand{\CC}{\ensuremath{\mathsf{CC}}\xspace}
+\newcommand{\DC}{\ensuremath{\mathsf{DC}}\xspace}
+\newcommand{\ZF}{\ensuremath{\mathsf{ZF}}\xspace}
+\newcommand{\ZFC}{\ensuremath{\mathsf{ZFC}}\xspace}
+\newcommand{\LS}{\ensuremath{\mathsf{LS}}\xspace}
+\newcommand{\AMC}{\ensuremath{\mathsf{AMC}}\xspace}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} %per la prima pagina
+\newcommand{\qedblack}{\hfill $\blacksquare$}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\IFF}{\Longleftrightarrow}
+\newcommand{\RR}{\mathcal{R}}
+
+\newcommand{\ndivides}{%
+  \mathrel{\mkern.5mu % small adjustment
+    % superimpose \nmid to \big|
+    \ooalign{\hidewidth$\big|$\hidewidth\cr$\nmid$\cr}%
+  }%
+}
+
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\H}{\mathcal{H}}
+%\renewcommand{\S}{\mathcal{S}}
+\renewcommand{\1}{\mathbbm{1}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\u}{\mathbf{u}}
+\renewcommand{\iff}{\Leftrightarrow}
+
+
+
+%%%% INIZIO COMANDI PER EQUIVALENZE %%%%
+\newcommand{\Implies}[2]{$\text{\ref{statement#1}}\!\implies\!\text{\ref{statement#2}}$}% X => Y
+\newcommand{\punto}[1]{\item \label{statement#1}}
+
+
+\newenvironment{equivalence}
+    {\begin{enumerate}[label=(\arabic*),ref=(\arabic*)]
+    }
+    { 
+	\end{enumerate}
+    }
+%%%% FINE COMANDI PER EQUIVALENZE %%%
+
+
+
+% Interlinea 1.5
+%\onehalfspacing  
+
+
+%per le citazioni
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+%disabilita colore link
+%\hypersetup{%
+%    pdfborder = {0 0 0}
+%}
+
+\begin{document}
+
+\noindent Andrea Gadotti \hfill 28/04/2015
+
+\paragraph{Exercise 29.}
+
+$(X_n)$ is not a Markov Chain. Indeed, consider $X_0$, $X_1$ and $X_2$. Suppose that $X_1=2$. This necessarily implies $Y_0=1$ and $Y_1=1$. Suppose \emph{also} $X_2=1$. This necessarily implies $Y_2=0$. It follows that under both these assumption, $X_3 \neq 2$, i.e.
+\[
+\P[X_3 = 2 | X_2=1, X_1=2] = 0.
+\]
+But
+\begin{multline*}
+\P[X_3 = 2 | X_2=1] = \frac{\P[X_3 = 2, X_2=1]}{\P[X_2=1]} = \\
+\frac{\P[Y_3=1,Y_2=1,Y_1=0]}{\P[(Y_2=1 \wedge Y_1=0) \vee (Y_2=0 \wedge Y_1=1)]} = \frac{1/8}{1/2} = \frac{1}{4} \neq 0.
+\end{multline*}
+
+
+\paragraph{Exercise 30.}
+
+We have 
+\begin{itemize}
+\item $\P[X_{n+1} = x-1 | X_n = x] = \left( \frac{x}{5} \right)^2$ for all $x=1,...,5$.
+\item $\P[X_{n+1} = x | X_n = x] = \left( \frac{5-x}{5} \right) \cdot \left( \frac{x}{5} \right)$ for all $x=0,...,5$.
+\item $\P[X_{n+1} = x+1 | X_n = x] = \left( \frac{5-x}{5} \right)^2$ for all $x=0,...,4$.
+\item The transition probability is $0$ in any other case.
+\end{itemize}
+
+
+\paragraph{Exercise 31.}
+
+\begin{enumerate}[(a)]
+\item By the given transition probabilities we can find the missing ones:
+\begin{itemize}
+\item $p(4,0) = 2p(4,3) = 2/3 \cdot (1-1/4) = 1/2$.
+\item $p(0,4) = 1-1/8-1/8 = 3/4$.
+\item $p(2,0) = 1-1/4-1/4 = 1/2$.
+\end{itemize}
+Therefore the transition matrix $P = (p(i,j))_{i,j}$ is
+\[
+P =
+\begin{pmatrix}
+1/8 & 0 & 1/8 & 0 & 3/4 \\ 
+0 & 1 & 0 & 0 & 0 \\ 
+1/2 & 1/4 & 1/4 & 0 & 0 \\ 
+0 & 0 & 0 & 1 & 0 \\ 
+1/2 & 0 & 0 & 1/4 & 1/4 
+\end{pmatrix}
+\]
+So, the transition graph is the following:
+
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (0) at (90:4) {0};
+  \node[main node] (1) at (90+72:4) {1};
+  \node[main node] (2) at (90+2*72:4) {2};
+  \node[main node] (3) at (90+3*72:4) {3};
+  \node[main node] (4) at (90+4*72:4) {4};
+
+  \path[every node/.style={font=\sffamily\small}]
+     (	0) edge [loop above] node {1/8} (0)
+     (	0) edge node [left] {1/8} (2)
+     (	0) edge node [left] {3/4} (4)
+     (1) edge [loop left] node {1} (1)
+     (	2) edge [loop below] node {1/4} (2)
+     (2) edge [bend left] node [left] {1/2} (0)
+     (2) edge node [left] {1/4} (1)
+     (	3) edge [loop below] node {1} (3)
+     (4) edge [loop right] node {1/4} (4)
+     (4) edge [bend right] node [right] {1/2} (0)
+     (4) edge node [right] {1/4} (3);
+\end{tikzpicture}
+\end{center}
+
+\item The Markov Chain is not irreducible because, for example, $p(1,1)=1$, i.e. $p(1,x)=0$ for any $x \neq 1$.
+\item For every state $x$, $p(x,x)>0$. This means that there are no transient states, i.e. every state is recurrent.
+\item The absorbing states are the ones such that $p(x,x)=1$. So $S = \{1,3\}$.
+\item We trivially have $\P[X_n=3 \text{ for } n \geq 1 | X_0=2] \leq \P[X_1=3 | X_0=2] = p(2,3)=0$.
+\item For all $n \geq 0$, define $Y_n := \1_{[X_n \not\in S | X_0=0]}$. Its expectation is
+\begin{align*}
+\E[Y_n] 
+&= \P[X_n \not\in S | X_0=0] \\
+&= \P[X_n=0 | X_0=0] + \P[X_n=2 | X_0=0] + \P[X_n=4 | X_0=0] \\
+&= p^{(n)}(0,0) + p^{(n)}(0,2) + p^{(n)}(0,4).
+\end{align*}
+Now observe that
+\[
+T_0 = \sum_{n=0}^{\infty} Y_n
+\]
+almost surely, because $\P[X_{n+k} \not\in S, X_{n} \in S] = 0$ for all $k \geq 0$, since $S$ is the set of absorbing states.\\
+Thus
+\[
+\E[T_0] = \sum_{n=0}^\infty \E[Y_n] = \sum_{n=0}^\infty \Big( p^{(n)}(0,0) + p^{(n)}(0,2) + p^{(n)}(0,4) \Big).
+\]
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
